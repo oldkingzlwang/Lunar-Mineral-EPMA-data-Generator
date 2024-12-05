@@ -45,9 +45,29 @@ If the ```test_data``` is predefined (i.e., when ```mode = 0``` or ```mode = 1``
 
 Once all steps are complete, the program generates a results table and saves the generated EPMA data along with their molar compositions in a .xlsx file named “```Output + mineral name.xlsx```” in the working directory.
 
+## How to Use the Program
+
+  1. **Install Required Toolbox**: Ensure that the Statistics and Machine Learning Toolbox is successfully installed in MATLAB.
+  2. **Select the Program**: For modeling minerals from lunar highlands, open ```LHMEG.m```. For modeling minerals from lunar mare, open ```LMMEG.m```.
+  3. **Set Program Parameters**: Modify the following variables in the script to suit your needs:
+     * ```mode```: Controls the input mode for generating EPMA data (explained below).
+     * ```mineral```: Defines the mineral type (e.g., pyroxene, olivine).
+     * ```numValidSamples```: Specifies the number of valid EPMA samples to be generated.
+  4. **Input Data**:
+     * If ```mode = 1```: Open the “```Test.xlsx```” file and replace the data with your own dataset.
+     * If ```mode = 2```: Manually specify the mean (```test_mean```) and standard deviation (```test_std```) values for each element in lines 119-120 of the script.
+  5. **Run the Program**: After setting up the program, click "Run" to execute the script and generate the modeled EPMA data.
+  6. **Customization**: You can further customize the program by editing the code or the ```MWU_test``` function to adjust the testing criteria. You may also modify the contents of the two training databases (```Highland.xlsx``` and ```Mare.xlsx```) to include additional data or remove unnecessary entries, thus enhancing the model's flexibility.
+
+## Remarks
+
+This program is currently in its early stages of development and requires further refinement. Additionally, the mineral database should be expanded to cover a broader range of compositions for more accurate simulations.
+
+If you would like to contribute to the program's development, or if you have any questions or feedback, please contact the author via email at ```zilong.wang@pku.edu.cn```.
+
 ## References
-Ágreda-López M., Parodi V., Musu A., et al. Enhancing machine learning thermobarometry for clinopyroxene-bearing magmas. 2024. *Computers & Geosciences* 193: 105707. doi: ```10.1016/j.cageo.2024.105707```.
-Walters J. B. 2022M inPlot: A mineral formula recalculation and plotting program for electron probe microanalysis. *Mineralogia* 53: 51-66. doi: ```10.2478/mipo-2022-0005```.
-Wieser P. E., Petrelli M., Lubbers J., et al. 2022. Thermobar: an open-source Python3 tool for thermobarometry and hygrometry. *Volcanica* 5(2): 349-384. doi: ```10.30909/vol.05.02.349384```.
-Wieser P. E., Till C., Kent A., Gleeson M. 2023. Comment on ‘The magmatic architecture and evolution of the Chang’e-5 lunar basalts’. Preprint submitted to *EarthArxiv*. doi: ```10.31223/X5MM3B```.
+  * Ágreda-López M., Parodi V., Musu A., et al. 2024. Enhancing machine learning thermobarometry for clinopyroxene-bearing magmas. *Computers & Geosciences* 193: 105707. doi: ```10.1016/j.cageo.2024.105707```.
+  * Walters J. B. 2022. MinPlot: A mineral formula recalculation and plotting program for electron probe microanalysis. *Mineralogia* 53: 51-66. doi: ```10.2478/mipo-2022-0005```.
+  * Wieser P. E., Petrelli M., Lubbers J., et al. 2022. Thermobar: an open-source Python3 tool for thermobarometry and hygrometry. *Volcanica* 5(2): 349-384. doi: ```10.30909/vol.05.02.349384```.
+  * Wieser P. E., Till C., Kent A., Gleeson M. 2023. Comment on ‘The magmatic architecture and evolution of the Chang’e-5 lunar basalts’. Preprint submitted to *EarthArxiv*. doi: ```10.31223/X5MM3B```.
 
