@@ -111,7 +111,7 @@ elseif strcmp(mineral,'ilm')==1
     end
 
 %% Perform the Mann-Whitney U test for spinel
-elseif strcmp(mineral,'crsp')==1 || strcmp(mineral,'mgsp')==1
+elseif strcmp(mineral,'crsp')==1 || strcmp(mineral,'mgsp')==1 || strcmp(mineral,'sp')==1
     StrctFrm1=test_sp(filtered_samples);
     StrctFrm2=test_sp(test_data);
 
