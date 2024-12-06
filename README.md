@@ -55,7 +55,7 @@ Once all steps are complete, the program generates a results table and saves the
      * ```numValidSamples```: Specifies the number of valid EPMA samples to be generated.
   4. **Input Data**:
      * If ```mode = 1```: Open the “```Test.xlsx```” file and replace the data with your own dataset.
-     * If ```mode = 2```: Manually specify the mean (```test_mean```) and standard deviation (```test_std```) values for each element in lines 119-120 of the script.
+     * If ```mode = 2```: Manually specify the mean (```test_mean```) and standard deviation (```test_std```) values for each element in lines 119-120 of ```LHMEG.m``` or lines 98-99 of ```LMMEG.m```.
   5. **Run the Program**: After setting up the program, click "Run" to execute the script and generate the modeled EPMA data.
   6. **Customization**: You can further customize the program by editing the code or the ```MWU_test``` function to adjust the testing criteria. You may also modify the contents of the two training databases (```Highland.xlsx``` and ```Mare.xlsx```) to include additional data or remove unnecessary entries, thus enhancing the model's flexibility.
 
