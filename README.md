@@ -47,21 +47,21 @@ Once all steps are complete, the program generates a results table and saves the
 
 ## How to Use the Program
 
-    1. **Install Required Toolbox**: Ensure that the Statistics and Machine Learning Toolbox is successfully installed in MATLAB.
-    2. **Select the Program**: For modeling minerals from lunar highlands, open ```LHMEG.m```. For modeling minerals from lunar mare, open ```LMMEG.m```.
-    3. **Set Program Parameters**: Modify the following variables in the script to suit your needs:
-     * ```mode```: Controls the input mode for generating EPMA data (explained below).
-     * ```mineral```: Defines the mineral type (e.g., pyroxene, olivine).
-     * ```numValidSamples```: Specifies the number of valid EPMA samples to be generated.
-    4. **Input Data**:
-     * If ```mode = 1```: Open the “```Test.xlsx```” file and replace the data with your own dataset.
-     * If ```mode = 2```: Manually specify the mean (```test_mean```) and standard deviation (```test_std```) values for each element in lines 119-120 of ```LHMEG.m``` or lines 98-99 of ```LMMEG.m```.
-    5. **Run the Program**: After setting up the program, click "Run" to execute the script and generate the modeled EPMA data.
-    6. **Customization**: You can further customize the program by editing the code or the ```MWU_test``` function to adjust the testing criteria. You may also modify the contents of the two training databases (```Highland.xlsx``` and ```Mare.xlsx```) to include additional data or remove unnecessary entries, thus enhancing the model's flexibility.
+1. **Install Required Toolbox**: Ensure that the Statistics and Machine Learning Toolbox is successfully installed in MATLAB.
+2. **Select the Program**: For modeling minerals from lunar highlands, open ```LHMEG.m```. For modeling minerals from lunar mare, open ```LMMEG.m```.
+3. **Set Program Parameters**: Modify the following variables in the script to suit your needs:
+ * ```mode```: Controls the input mode for generating EPMA data (explained below).
+ * ```mineral```: Defines the mineral type (e.g., pyroxene, olivine).
+ * ```numValidSamples```: Specifies the number of valid EPMA samples to be generated.
+4. **Input Data**:
+ * If ```mode = 1```: Open the “```Test.xlsx```” file and replace the data with your own dataset.
+ * If ```mode = 2```: Manually specify the mean (```test_mean```) and standard deviation (```test_std```) values for each element in lines 119-120 of ```LHMEG.m``` or lines 98-99 of ```LMMEG.m```.
+5. **Run the Program**: After setting up the program, click "Run" to execute the script and generate the modeled EPMA data.
+6. **Customization**: You can further customize the program by editing the code or the ```MWU_test``` function to adjust the testing criteria. You may also modify the contents of the two training databases (```Highland.xlsx``` and ```Mare.xlsx```) to include additional data or remove unnecessary entries, thus enhancing the model's flexibility.
 
 ## Another consideration: data imputation for missing and zero values
 
-Users will find an R script named ```Fill_missing```. This R script performs imputation of missing values (`NA`) and zero values in the specified worksheets of the `Highlands.xlsx` file. It uses two primary methods: 1. **`mice` (Multivariate Imputation by Chained Equations)**: Handles the imputation of missing (`NA`) values. 2. **`lrDA` (Logratio Data Augmentation)**: Replaces zero values with small positive values based on detection limits. The output is saved in a new Excel file (`Highlands_impute.xlsx` or`Mare_impute.xlsx`), where each processed worksheet is stored as a separate worksheet. Users can use this output for subsequent calculations or analyses.
+Users can find an R script named ```Fill_missing```. This R script performs imputation of missing values (`NA`) and zero values in the specified worksheets of the `Highlands.xlsx` file. It uses two primary methods: 1. **`mice` (Multivariate Imputation by Chained Equations)**: Handles the imputation of missing (`NA`) values. 2. **`lrDA` (Logratio Data Augmentation)**: Replaces zero values with small positive values based on detection limits. The output is saved in a new Excel file (`Highlands_impute.xlsx` or`Mare_impute.xlsx`), where each processed worksheet is stored as a separate worksheet. Users can use this output for subsequent calculations or analyses.
 
 The program expects input files named `Highlands.xlsx` or `Mare.xlsx` existing in the working directory. Then, the program will implement the following imputation workflows:
 
