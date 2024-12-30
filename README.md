@@ -47,17 +47,39 @@ Once all steps are complete, the program generates a results table and saves the
 
 ## How to Use the Program
 
-  1. **Install Required Toolbox**: Ensure that the Statistics and Machine Learning Toolbox is successfully installed in MATLAB.
-  2. **Select the Program**: For modeling minerals from lunar highlands, open ```LHMEG.m```. For modeling minerals from lunar mare, open ```LMMEG.m```.
-  3. **Set Program Parameters**: Modify the following variables in the script to suit your needs:
+    1. **Install Required Toolbox**: Ensure that the Statistics and Machine Learning Toolbox is successfully installed in MATLAB.
+    2. **Select the Program**: For modeling minerals from lunar highlands, open ```LHMEG.m```. For modeling minerals from lunar mare, open ```LMMEG.m```.
+    3. **Set Program Parameters**: Modify the following variables in the script to suit your needs:
      * ```mode```: Controls the input mode for generating EPMA data (explained below).
      * ```mineral```: Defines the mineral type (e.g., pyroxene, olivine).
      * ```numValidSamples```: Specifies the number of valid EPMA samples to be generated.
-  4. **Input Data**:
+    4. **Input Data**:
      * If ```mode = 1```: Open the “```Test.xlsx```” file and replace the data with your own dataset.
      * If ```mode = 2```: Manually specify the mean (```test_mean```) and standard deviation (```test_std```) values for each element in lines 119-120 of ```LHMEG.m``` or lines 98-99 of ```LMMEG.m```.
-  5. **Run the Program**: After setting up the program, click "Run" to execute the script and generate the modeled EPMA data.
-  6. **Customization**: You can further customize the program by editing the code or the ```MWU_test``` function to adjust the testing criteria. You may also modify the contents of the two training databases (```Highland.xlsx``` and ```Mare.xlsx```) to include additional data or remove unnecessary entries, thus enhancing the model's flexibility.
+    5. **Run the Program**: After setting up the program, click "Run" to execute the script and generate the modeled EPMA data.
+    6. **Customization**: You can further customize the program by editing the code or the ```MWU_test``` function to adjust the testing criteria. You may also modify the contents of the two training databases (```Highland.xlsx``` and ```Mare.xlsx```) to include additional data or remove unnecessary entries, thus enhancing the model's flexibility.
+
+## Another consideration: data imputation for missing and zero values
+
+Users will find an R script named ```Fill_missing```. This R script performs imputation of missing values (`NA`) and zero values in the specified worksheets of the `Highlands.xlsx` file. It uses two primary methods: 1. **`mice` (Multivariate Imputation by Chained Equations)**: Handles the imputation of missing (`NA`) values. 2. **`lrDA` (Logratio Data Augmentation)**: Replaces zero values with small positive values based on detection limits. The output is saved in a new Excel file (`Highlands_impute.xlsx` or`Mare_impute.xlsx`), where each processed worksheet is stored as a separate worksheet. Users can use this output for subsequent calculations or analyses.
+
+The program expects input files named `Highlands.xlsx` or `Mare.xlsx` existing in the working directory. Then, the program will implement the following imputation workflows:
+
+1. **Data Cleaning**: Retains only columns 5 to 15 from each worksheet. Replaces `"b.d."`, `"bdl"`, `"-"`, and `0` with `NA` for further processing. 
+2. **`mice` Imputation**: Missing (`NA`) values are imputed using Bayesian linear regression (`method = "norm"`). The process is repeated for `10` imputations with `50` iterations to ensure convergence. 
+3. **Zero Replacement using `lrDA`**: If any zeros remain in the imputed data, they are replaced using `lrDA` with detection limits. Detection limits are computed as the minimum positive value for each column. 
+4. **Validation with Procrustes Analysis**: The similarity between original data (complete cases) and imputed data is evaluated using Procrustes analysis. 
+5. **Add Summary Column**: A new column, `Total`, is added to the imputed dataset, representing the row-wise sum of values. 
+6. **Save Results**: The processed worksheets are saved into a new Excel file (`Highlands_impute.xlsx` or`Mare_impute.xlsx`)).
+
+This process is optional, and it is not necessary to run before running the `Lunar-Mineral-EPMA-data-Generator`. However, the  `Lunar-Mineral-EPMA-data-Generator` may perform better if you run the R program in advance and substitute data in  `Highlands.xlsx` or `Mare.xlsx` with data in `Highlands_impute.xlsx` or`Mare_impute.xlsx`.
+
+To run the R program, ensure you have the following R packages installed: `mice`: For imputing missing values using chained equations. `truncnorm`: To replace negative imputed values with small positive values. `vegan`: For Procrustes analysis. `readxl`: To read data from Excel files. `openxlsx`: To write the results to an Excel file. `zCompositions`: For logratio data augmentation and zero replacement. To install the required packages, run: 
+
+```R
+install.packages(c("mice", "truncnorm", "vegan", "readxl", "openxlsx"))
+if (!requireNamespace("zCompositions", quietly = TRUE)) {  install.packages("zCompositions") }
+```
 
 ## Remarks
 
